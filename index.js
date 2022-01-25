@@ -271,6 +271,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         // We listen to any new connection made to us for p2p chat.
         libp2p.handle("/chat/mmp2p/1.0.0", async (connection) => {
           // pipe data from the connection
+          await ethereum.request({
+            method: 'wallet_invokeSnap',
+            params: [snapId, {
+              method: 'answer',
+              params: {
+                user: document.getElementById("username").value,
+                otherUser: " anonymous",
+                otherUserPeerId: connection.connection.remotePeer.toB58String(),
+                message: "Hello world",
+              }
+            }]
+          })
           connections[connection.connection.remotePeer.toB58String()] = new ChatConnection(connection, connection.connection.remotePeer.toB58String(), false);
         })
 
