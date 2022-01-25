@@ -29,11 +29,10 @@ class ChatConnection {
 
     // starts recieving data from connection stream.
     if(isDial) {
-      this.sendData(userInformation);
       this._dialCallback();
     } else {
       // answer with basic information
-      // this.sendData(userInformation);
+      this.sendData(userInformation);
       this._answerCallback();
     }
   }
